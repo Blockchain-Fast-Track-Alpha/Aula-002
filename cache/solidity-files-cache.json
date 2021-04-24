@@ -36,8 +36,8 @@
       ]
     },
     "E:\\Repositories\\BFT\\002\\contracts\\Token.sol": {
-      "lastModificationDate": 1619279211767,
-      "contentHash": "3f4d8671cfdea99a8102cf92fe88f6d2",
+      "lastModificationDate": 1619295631079,
+      "contentHash": "3f3ab77cb82af7289c1d25966c98ba8e",
       "sourceName": "contracts/Token.sol",
       "solcConfig": {
         "version": "0.8.3",

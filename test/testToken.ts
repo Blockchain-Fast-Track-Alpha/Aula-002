@@ -8,9 +8,11 @@ const TOKEN_NAME = "Lorem Ipsum";
 describe("Token", function () {
   let accounts: Signer[];
   let contract: Contract;
+  let ownerAddress: String;
 
   beforeEach(async function () {
     accounts = await ethers.getSigners();
+    ownerAddress = await accounts[0].getAddress();
     const TokenContract: ContractFactory = await ethers.getContractFactory(
       "MeuToken"
     );
@@ -24,23 +26,27 @@ describe("Token", function () {
   });
 
   it("Should have zero balance for the owner when deployed", async function () {
-    expect(false).to.equal(true);
+    expect(await contract.balanceOf(ownerAddress)).to.equal(0);
   });
 
   it("Should deploy with zero TotalSupply", async function () {
-    expect(false).to.equal(true);
+    expect(await contract.totalSupply()).to.equal(0);
   });
 
   it("Should not allow anyone to mint tokens", async function () {
-    expect(false).to.equal(true);
+    await expect(contract.connect(accounts[1]).mint(ownerAddress, ethers.utils.parseEther("1"))).to.be.revertedWith("MeuToken: Mensagem de erro");
   });
 
   it("Should update balance when tokens are minted", async function () {
-    expect(false).to.equal(true);
+    await contract.mint(ownerAddress, ethers.utils.parseEther("1"));
+    expect(await contract.balanceOf(ownerAddress)).to.equal(ethers.utils.parseEther("1"));
+    await contract.mint(ownerAddress, ethers.utils.parseEther("1"));
+    expect(await contract.balanceOf(ownerAddress)).to.equal(ethers.utils.parseEther("2"));
   });
 
   it("Should update TotalSupply when tokens are minted", async function () {
-    expect(false).to.equal(true);
+    await contract.mint(ownerAddress, ethers.utils.parseEther("1"));
+    expect(await contract.totalSupply()).to.equal(ethers.utils.parseEther("1"));
   });
 
   it("Should not mint to address zero", async function () {
